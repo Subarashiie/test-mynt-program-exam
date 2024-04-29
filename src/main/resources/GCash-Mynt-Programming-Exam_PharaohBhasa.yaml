@@ -1,0 +1,67 @@
+openapi: "3.0.1"
+info:
+  title: "GCash Mynt - Parcel Cost Calculation API"
+  version: "1.0.0"
+  description: "An API for calculating the cost of parcel delivery"
+servers:
+  - url: "http://localhost:8080"
+    description: "Local development server"
+paths:
+  /api/parcel/calculateCost:
+    post:
+      tags:
+        - "Parcel Delivery"
+      summary: "Calculate the cost of parcel delivery"
+      operationId: "calculateCost"
+      parameters:
+        - name: "voucher"
+          in: "query"
+          description: "Optional voucher code for discount"
+          schema:
+            type: "string"
+          required: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Parcel"
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ParcelCost"
+components:
+  schemas:
+    Parcel:
+      type: "object"
+      properties:
+        weight:
+          type: "number"
+          description: "Weight of the parcel in kilograms"
+        height:
+          type: "number"
+          description: "Height of the parcel in centimeters"
+        width:
+          type: "number"
+          description: "Width of the parcel in centimeters"
+        length:
+          type: "number"
+          description: "Length of the parcel in centimeters"
+    ParcelCost:
+      type: "object"
+      properties:
+        cost:
+          type: "string"
+          description: "Parcel calculation cost"
+        ruleApplied:
+          type: "string"
+          description: "Rule applied to parcel"
+        parcelTotalWeight:
+          type: "number"
+          description: "Parcel total weight in KG"
+        parcelTotalVolume:
+          type: "number"
+          description: "Parcel total volume"
