@@ -40,7 +40,7 @@ public class VoucherServiceImpl implements VoucherService {
   
         String url = voucherApiBaseURL + voucherApiResourceURL + "/" + voucherCode;
         try {
-            voucherItem = restTemplate.getForObject(url, VoucherItem.class);
+            voucherItem = restTemplate.postForObject(url, null, VoucherItem.class);
         } catch (Exception ex) {
         	log.error(ex.toString());
         }
